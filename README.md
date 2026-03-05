@@ -54,7 +54,7 @@ website/
 
 Developed with 💙 by [Andrés Orozco](https://github.com/AndresOrozcoDev)
 
-- 📬 [andresorozcodev@gmail.com](mailto:andresorozcodev@gmail.com)
+- 📬 [andres.orozco.dev@gmail.com](mailto:andres.orozco.dev@gmail.com)
 - 🌐 [LinkedIn](https://www.linkedin.com/in/andresorozcodev)
 
 ---
