@@ -17,34 +17,29 @@ website/
 │
 ├── assets/
 │   ├── css/
-│   │   ├── reset.css
+│   │   ├── navbar.css
+│   │   ├── footer.css
 │   │   └── global.css
 │   ├── js/
 │   │   └── global.js
 │   └── img/
 │
-├── components/
-│   ├── navbar.js        ← Web Component del navbar
-│   └── footer.js        ← Web Component del footer
-│
 ├── pages/
-│   ├── inicio/
+│   ├── company/
 │   │   ├── index.html
-│   │   ├── inicio.css
-│   │   └── inicio.js
-│   ├── empresa/
+│   │   ├── company.css
+│   │   └── company.js
+│   ├── services/
 │   │   ├── index.html
-│   │   ├── empresa.css
-│   │   └── empresa.js
-│   ├── servicios/
-│   │   ├── index.html
-│   │   ├── servicios.css
-│   │   └── servicios.js
-│   └── contactanos/
+│   │   ├── services.css
+│   │   └── services.js
+│   └── contact/
 │       ├── index.html
-│       ├── contactanos.css
-│       └── contactanos.js
+│       ├── contact.css
+│       └── contact.js
 │
+├── index.css
+├── index.js
 └── index.html
 ```
 
