@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChainPulse — Real-Time On-Chain Intelligence</title>
+  <meta name="description" content="Real-time whale tracking, smart money flow analysis, and DeFi yield alerts across 12 chains.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{display:['"Orbitron"','sans-serif'],sans:['"Rajdhani"','sans-serif']},colors:{neon:{cyan:'#00F0FF',pink:'#FF00AA',green:'#AAFF00'},surface:{DEFAULT:'#12121A',light:'#1A1A28'}}}}}
+  </script>
+  <style>
+    :root{--bg:#0A0A0F;--surface:#12121A;--text:#E0E0FF;--text2:#7070A0;--cyan:#00F0FF;--pink:#FF00AA;--green:#AAFF00;--border:rgba(0,240,255,.15)}
+    body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif}
+    body::before{content:'';position:fixed;inset:0;background:linear-gradient(rgba(0,240,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,240,255,.02) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
+    .font-display{font-family:'Orbitron',sans-serif}
+    .glow-cyan{text-shadow:0 0 20px rgba(0,240,255,.5),0 0 60px rgba(0,240,255,.2)}
+    .reveal{opacity:0;transform:translateY(24px);transition:all .6s cubic-bezier(.16,1,.3,1)}.reveal.active{opacity:1;transform:translateY(0)}
+    .card{border:1px solid var(--border);background:rgba(18,18,26,.8);backdrop-filter:blur(8px);transition:all .3s ease}.card:hover{border-color:rgba(0,240,255,.35);box-shadow:0 0 30px rgba(0,240,255,.08)}
+    .scanline{background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,240,255,.015) 2px,rgba(0,240,255,.015) 4px);pointer-events:none}
+    @keyframes pulse-neon{0%,100%{box-shadow:0 0 15px rgba(0,240,255,.3)}50%{box-shadow:0 0 35px rgba(0,240,255,.5)}}.pulse-neon{animation:pulse-neon 2.5s ease-in-out infinite}
+    @keyframes data-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}.data-ticker{animation:data-scroll 30s linear infinite}
+    .gradient-text-cyber{background:linear-gradient(90deg,#00F0FF,#FF00AA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .nav-blur{backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:rgba(10,10,15,.85)}
+    .counter{font-variant-numeric:tabular-nums}
+  </style>
+</head>
+<body class="antialiased relative">
+  <div class="fixed inset-0 scanline z-0"></div>
+  <nav class="fixed top-0 inset-x-0 z-50 nav-blur border-b" style="border-color:var(--border)">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14">
+      <a href="#" class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded flex items-center justify-center border" style="border-color:var(--cyan)">
+          <svg class="w-4 h-4" style="color:var(--cyan)" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.75a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.913-.143z" clip-rule="evenodd"/></svg>
+        </div>
+        <span class="font-display text-sm font-bold tracking-wider" style="color:var(--cyan)">CHAINPULSE</span>
+      </a>
+      <div class="hidden sm:flex items-center gap-6">
+        <a href="#features" class="text-sm font-medium tracking-wide" style="color:var(--text2)">FEATURES</a>
+        <a href="#chains" class="text-sm font-medium tracking-wide" style="color:var(--text2)">CHAINS</a>
+      </div>
+      <a href="#" class="px-4 py-2 rounded text-sm font-semibold border transition-all pulse-neon" style="color:var(--cyan);border-color:var(--cyan)">LAUNCH APP</a>
+    </div>
+  </nav>
+
+  <main class="relative z-10">
+    <section class="min-h-screen flex items-center pt-14 relative overflow-hidden">
+      <div class="absolute top-1/4 left-10 w-72 h-72 rounded-full blur-[120px] opacity-20" style="background:var(--cyan)"></div>
+      <div class="absolute bottom-1/4 right-10 w-60 h-60 rounded-full blur-[100px] opacity-15" style="background:var(--pink)"></div>
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-24 sm:py-32 text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded text-xs font-medium tracking-widest uppercase mb-8 border" style="border-color:var(--border);color:var(--text2)">
+          <span class="w-1.5 h-1.5 rounded-full" style="background:var(--green)"></span> LIVE · 12 CHAINS · 4.2M WALLETS TRACKED
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl md:text-7xl font-black tracking-tight leading-[1.1] mb-6">
+          <span class="hero-word" style="color:var(--text)">ON-CHAIN</span><br>
+          <span class="hero-word glow-cyan" style="color:var(--cyan)">INTELLIGENCE</span>
+        </h1>
+        <p class="text-lg sm:text-xl max-w-xl mx-auto mb-10 leading-relaxed" style="color:var(--text2)">Real-time whale tracking. Smart money flow analysis. DeFi yield alerts. See what the big wallets see — <span style="color:var(--cyan)">before everyone else</span>.</p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="#" class="px-7 py-3.5 rounded text-sm font-bold tracking-wider uppercase transition-all pulse-neon" style="background:var(--cyan);color:#0A0A0F">CONNECT WALLET →</a>
+          <a href="#features" class="px-7 py-3.5 rounded text-sm font-semibold tracking-wider uppercase border transition-all" style="color:var(--text2);border-color:var(--border)">EXPLORE</a>
+        </div>
+        <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto reveal">
+          <div class="text-center"><div class="font-display text-3xl sm:text-4xl font-black counter" style="color:var(--cyan)">$<span data-target="2">0</span>.4B</div><div class="text-xs mt-1 tracking-wider uppercase" style="color:var(--text2)">Volume / 24h</div></div>
+          <div class="text-center"><div class="font-display text-3xl sm:text-4xl font-black counter" style="color:var(--pink)"><span data-target="12">0</span></div><div class="text-xs mt-1 tracking-wider uppercase" style="color:var(--text2)">Chains</div></div>
+          <div class="text-center"><div class="font-display text-3xl sm:text-4xl font-black counter" style="color:var(--green)"><span data-target="847">0</span>ms</div><div class="text-xs mt-1 tracking-wider uppercase" style="color:var(--text2)">Alert Latency</div></div>
+          <div class="text-center"><div class="font-display text-3xl sm:text-4xl font-black counter" style="color:var(--cyan)"><span data-target="42">0</span>K</div><div class="text-xs mt-1 tracking-wider uppercase" style="color:var(--text2)">Active Traders</div></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="border-y overflow-hidden py-3" style="border-color:var(--border)">
+      <div class="data-ticker flex gap-8 whitespace-nowrap">
+        <span class="text-sm font-medium" style="color:var(--cyan)">ETH $3,842.17 ▲ 2.4%</span>
+        <span class="text-sm font-medium" style="color:var(--pink)">BTC $97,243.00 ▼ 0.8%</span>
+        <span class="text-sm font-medium" style="color:var(--green)">SOL $187.42 ▲ 5.1%</span>
+        <span class="text-sm font-medium" style="color:var(--cyan)">ARB $1.23 ▲ 1.2%</span>
+        <span class="text-sm font-medium" style="color:var(--pink)">WHALE ALERT: 2,400 ETH → Binance</span>
+        <span class="text-sm font-medium" style="color:var(--green)">OP $2.87 ▲ 3.8%</span>
+        <span class="text-sm font-medium" style="color:var(--cyan)">ETH $3,842.17 ▲ 2.4%</span>
+        <span class="text-sm font-medium" style="color:var(--pink)">BTC $97,243.00 ▼ 0.8%</span>
+        <span class="text-sm font-medium" style="color:var(--green)">SOL $187.42 ▲ 5.1%</span>
+        <span class="text-sm font-medium" style="color:var(--cyan)">ARB $1.23 ▲ 1.2%</span>
+        <span class="text-sm font-medium" style="color:var(--pink)">WHALE ALERT: 2,400 ETH → Binance</span>
+        <span class="text-sm font-medium" style="color:var(--green)">OP $2.87 ▲ 3.8%</span>
+      </div>
+    </div>
+
+    <section id="features" class="py-24 sm:py-32">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-16 reveal">
+          <p class="font-display text-xs tracking-[0.3em] uppercase mb-3" style="color:var(--cyan)">CORE MODULES</p>
+          <h2 class="font-display text-3xl sm:text-4xl font-black tracking-tight" style="color:var(--text)">SEE THE CHAIN.<br><span class="gradient-text-cyber">OWN THE EDGE.</span></h2>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div class="card reveal rounded p-6">
+            <div class="w-10 h-10 rounded flex items-center justify-center mb-4 border" style="border-color:rgba(0,240,255,.2);background:rgba(0,240,255,.05)">
+              <svg class="w-5 h-5" style="color:var(--cyan)" viewBox="0 0 24 24" fill="currentColor"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" clip-rule="evenodd"/></svg>
+            </div>
+            <h3 class="font-display text-sm font-bold tracking-wider uppercase mb-2" style="color:var(--cyan)">WHALE WATCHER</h3>
+            <p class="text-sm leading-relaxed" style="color:var(--text2)">Track wallets holding $10M+. Real-time alerts when they move. Know before the market reacts.</p>
+          </div>
+          <div class="card reveal rounded p-6">
+            <div class="w-10 h-10 rounded flex items-center justify-center mb-4 border" style="border-color:rgba(255,0,170,.2);background:rgba(255,0,170,.05)">
+              <svg class="w-5 h-5" style="color:var(--pink)" viewBox="0 0 24 24" fill="currentColor"><path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z"/></svg>
+            </div>
+            <h3 class="font-display text-sm font-bold tracking-wider uppercase mb-2" style="color:var(--pink)">FLOW ANALYZER</h3>
+            <p class="text-sm leading-relaxed" style="color:var(--text2)">Visualise money flow between DEXs, CEXs, and DeFi protocols. Spot accumulation and distribution in real time.</p>
+          </div>
+          <div class="card reveal rounded p-6">
+            <div class="w-10 h-10 rounded flex items-center justify-center mb-4 border" style="border-color:rgba(170,255,0,.2);background:rgba(170,255,0,.05)">
+              <svg class="w-5 h-5" style="color:var(--green)" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M5.25 9a6.75 6.75 0 0113.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 01-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 11-7.48 0 24.585 24.585 0 01-4.831-1.244.75.75 0 01-.298-1.205A8.217 8.217 0 005.25 9.75V9zm4.502 8.9a2.25 2.25 0 104.496 0 25.057 25.057 0 01-4.496 0z" clip-rule="evenodd"/></svg>
+            </div>
+            <h3 class="font-display text-sm font-bold tracking-wider uppercase mb-2" style="color:var(--green)">YIELD RADAR</h3>
+            <p class="text-sm leading-relaxed" style="color:var(--text2)">Cross-chain yield comparison across 200+ DeFi protocols. Auto-alerts when APY spikes above your threshold.</p>
+          </div>
+          <div class="card reveal rounded p-6">
+            <div class="w-10 h-10 rounded flex items-center justify-center mb-4 border" style="border-color:rgba(0,240,255,.2);background:rgba(0,240,255,.05)">
+              <svg class="w-5 h-5" style="color:var(--cyan)" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9 4.5a.75.75 0 01.721.544l.813 2.846a3.75 3.75 0 002.576 2.576l2.846.813a.75.75 0 010 1.442l-2.846.813a3.75 3.75 0 00-2.576 2.576l-.813 2.846a.75.75 0 01-1.442 0l-.813-2.846a3.75 3.75 0 00-2.576-2.576l-2.846-.813a.75.75 0 010-1.442l2.846-.813A3.75 3.75 0 007.466 7.89l.813-2.846A.75.75 0 019 4.5zM18 1.5a.75.75 0 01.728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 010 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 01-1.456 0l-.258-1.036a2.625 2.625 0 00-1.91-1.91l-1.036-.258a.75.75 0 010-1.456l1.036-.258a2.625 2.625 0 001.91-1.91l.258-1.036A.75.75 0 0118 1.5z" clip-rule="evenodd"/></svg>
+            </div>
+            <h3 class="font-display text-sm font-bold tracking-wider uppercase mb-2" style="color:var(--cyan)">SMART COPY</h3>
+            <p class="text-sm leading-relaxed" style="color:var(--text2)">Identify and mirror the top-performing wallets automatically. Set risk parameters and let the algo follow the alpha.</p>
+          </div>
+          <div class="card reveal rounded p-6">
+            <div class="w-10 h-10 rounded flex items-center justify-center mb-4 border" style="border-color:rgba(255,0,170,.2);background:rgba(255,0,170,.05)">
+              <svg class="w-5 h-5" style="color:var(--pink)" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clip-rule="evenodd"/></svg>
+            </div>
+            <h3 class="font-display text-sm font-bold tracking-wider uppercase mb-2" style="color:var(--pink)">RUG SCANNER</h3>
+            <p class="text-sm leading-relaxed" style="color:var(--text2)">AI-powered contract analysis. Detect honeypots, hidden mints, and suspicious ownership patterns before you ape in.</p>
+          </div>
+          <div class="card reveal rounded p-6">
+            <div class="w-10 h-10 rounded flex items-center justify-center mb-4 border" style="border-color:rgba(170,255,0,.2);background:rgba(170,255,0,.05)">
+              <svg class="w-5 h-5" style="color:var(--green)" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M14.447 3.027a.75.75 0 01.527.92l-4.5 16.5a.75.75 0 01-1.448-.394l4.5-16.5a.75.75 0 01.921-.526zM16.72 6.22a.75.75 0 011.06 0l5.25 5.25a.75.75 0 010 1.06l-5.25 5.25a.75.75 0 11-1.06-1.06L21.44 12l-4.72-4.72a.75.75 0 010-1.06zm-9.44 0a.75.75 0 010 1.06L2.56 12l4.72 4.72a.75.75 0 11-1.06 1.06L.97 12.53a.75.75 0 010-1.06l5.25-5.25a.75.75 0 011.06 0z" clip-rule="evenodd"/></svg>
+            </div>
+            <h3 class="font-display text-sm font-bold tracking-wider uppercase mb-2" style="color:var(--green)">API ACCESS</h3>
+            <p class="text-sm leading-relaxed" style="color:var(--text2)">Build custom dashboards and trading bots with our WebSocket and REST APIs. Sub-second data across all chains.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="chains" class="py-24 border-t" style="border-color:var(--border)">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center reveal">
+        <p class="font-display text-xs tracking-[0.3em] uppercase mb-3" style="color:var(--cyan)">SUPPORTED CHAINS</p>
+        <h2 class="font-display text-3xl font-black mb-10" style="color:var(--text)">12 CHAINS. ONE DASHBOARD.</h2>
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <span class="px-4 py-2 rounded text-sm font-medium border" style="border-color:var(--border);color:var(--text2)">Ethereum</span>
+          <span class="px-4 py-2 rounded text-sm font-medium border" style="border-color:rgba(0,240,255,.3);color:var(--cyan)">Solana</span>
+          <span class="px-4 py-2 rounded text-sm font-medium border" style="border-color:var(--border);color:var(--text2)">Arbitrum</span>
+          <span class="px-4 py-2 rounded text-sm font-medium border" style="border-color:var(--border);color:var(--text2)">Optimism</span>
+          <span class="px-4 py-2 rounded text-sm font-medium border" style="border-color:var(--border);color:var(--text2)">Base</span>
+          <span class="px-4 py-2 rounded text-sm font-medium border" style="border-color:var(--border);color:var(--text2)">Polygon</span>
+          <span class="px-4 py-2 rounded text-sm font-medium border" style="border-color:var(--border);color:var(--text2)">Avalanche</span>
+          <span class="px-4 py-2 rounded text-sm font-medium border" style="border-color:var(--border);color:var(--text2)">BSC</span>
+          <span class="px-4 py-2 rounded text-sm font-medium border" style="border-color:var(--border);color:var(--text2)">Fantom</span>
+          <span class="px-4 py-2 rounded text-sm font-medium border" style="border-color:var(--border);color:var(--text2)">zkSync</span>
+          <span class="px-4 py-2 rounded text-sm font-medium border" style="border-color:var(--border);color:var(--text2)">Sui</span>
+          <span class="px-4 py-2 rounded text-sm font-medium border" style="border-color:rgba(170,255,0,.3);color:var(--green)">+ More</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-24 border-t relative overflow-hidden" style="border-color:var(--border)">
+      <div class="absolute inset-0 opacity-20"><div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-[150px]" style="background:linear-gradient(135deg,var(--cyan),var(--pink))"></div></div>
+      <div class="relative max-w-3xl mx-auto px-4 sm:px-6 text-center reveal">
+        <h2 class="font-display text-3xl sm:text-4xl font-black tracking-tight mb-6" style="color:var(--text)">STOP TRADING BLIND.<br><span class="glow-cyan" style="color:var(--cyan)">START SEEING THE CHAIN.</span></h2>
+        <p class="text-lg mb-10" style="color:var(--text2)">Free tier available. No credit card. Connect wallet and go.</p>
+        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 rounded text-base font-bold tracking-wider uppercase transition-all pulse-neon" style="background:var(--cyan);color:#0A0A0F">CONNECT WALLET →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t py-8 relative z-10" style="border-color:var(--border)">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-xs" style="color:var(--text2)">© <script>document.write(new Date().getFullYear())</script> ChainPulse. All rights reserved.</p>
+      <div class="flex gap-4"><a href="#" class="text-xs" style="color:var(--text2)">Docs</a><a href="#" class="text-xs" style="color:var(--text2)">Discord</a><a href="#" class="text-xs" style="color:var(--text2)">Twitter</a></div>
+    </div>
+  </footer>
+
+  <script>
+    const obs=new IntersectionObserver(e=>{e.forEach((el,i)=>{if(el.isIntersecting)setTimeout(()=>el.target.classList.add('active'),i*60)})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+    window.addEventListener('load',()=>{anime({targets:'.hero-word',opacity:[0,1],translateY:[30,0],delay:anime.stagger(150,{start:200}),easing:'easeOutCubic',duration:1000})});
+    document.querySelectorAll('.counter span[data-target]').forEach(el=>{const c=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){anime({targets:en.target,innerHTML:[0,parseInt(en.target.dataset.target)],round:1,easing:'easeInOutExpo',duration:2000});c.unobserve(en.target)}})},{threshold:.5});c.observe(el)});
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'})})});
+  </script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PennyWise — Money stuff, but make it fun</title>
+  <meta name="description" content="PennyWise makes budgeting, saving, and investing actually enjoyable for Gen Z.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['"Plus Jakarta Sans"','sans-serif']},borderRadius:{DEFAULT:'20px','2xl':'24px','3xl':'32px'},colors:{primary:{DEFAULT:'#8B5CF6',hover:'#7C3AED'},accent:'#F472B6',warning:'#FFD200'}}}}
+  </script>
+  <style>
+    :root{--bg:#FEFBF6;--surface:#FFF;--text:#1E293B;--text2:#64748B;--primary:#8B5CF6;--accent:#F472B6;--border:#E2E8F0}
+    .dark{--bg:#0F172A;--surface:#1E293B;--text:#F8FAFC;--text2:#94A3B8;--primary:#A78BFA;--accent:#F472B6;--border:#334155}
+    body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif}
+    .gradient-hero{background:linear-gradient(135deg,#667EEA 0%,#764BA2 50%,#F093FB 100%)}
+    .gradient-card{background:linear-gradient(135deg,rgba(167,139,250,.08),rgba(244,114,182,.08))}
+    .gradient-text{background:linear-gradient(135deg,#8B5CF6,#F472B6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .reveal{opacity:0;transform:translateY(24px);transition:all .7s cubic-bezier(.34,1.56,.64,1)}.reveal.active{opacity:1;transform:translateY(0)}
+    .card{transition:all .3s cubic-bezier(.34,1.56,.64,1)}.card:hover{transform:translateY(-4px) rotate(1deg)}
+    .bounce-btn{transition:transform .2s cubic-bezier(.34,1.56,.64,1)}.bounce-btn:hover{transform:scale(1.05)}.bounce-btn:active{transform:scale(.97)}
+    .blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.15}
+  </style>
+</head>
+<body class="antialiased relative overflow-x-hidden">
+  <div class="blob w-96 h-96 -top-20 -right-20" style="background:#667EEA"></div>
+  <div class="blob w-80 h-80 top-1/3 -left-20" style="background:#F093FB"></div>
+  <div class="blob w-72 h-72 bottom-1/4 right-10" style="background:#F5576C"></div>
+
+  <nav class="fixed top-0 inset-x-0 z-50 border-b" style="background:rgba(254,251,246,.85);backdrop-filter:blur(16px);border-color:var(--border)">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14">
+      <a href="#" class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-full gradient-hero flex items-center justify-center">
+          <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M10.464 8.746c.227-.18.497-.311.786-.394v2.795a2.252 2.252 0 01-.786-.393c-.394-.313-.546-.681-.546-1.004 0-.323.152-.691.546-1.004zM12.75 15.662v-2.824c.347.085.664.228.921.421.427.32.579.686.579.991 0 .305-.152.671-.579.991a2.534 2.534 0 01-.921.42z"/><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v.816a3.836 3.836 0 00-1.72.756c-.712.566-1.112 1.35-1.112 2.178 0 .829.4 1.612 1.113 2.178.502.4 1.102.647 1.719.756v2.978a2.536 2.536 0 01-.921-.421l-.879-.66a.75.75 0 00-.9 1.2l.879.66c.533.4 1.169.645 1.821.75V18a.75.75 0 001.5 0v-.81a4.124 4.124 0 001.821-.749c.745-.559 1.179-1.344 1.179-2.191 0-.847-.434-1.632-1.179-2.191a4.122 4.122 0 00-1.821-.75V8.354c.29.082.559.213.786.393l.415.33a.75.75 0 00.933-1.175l-.415-.33a3.836 3.836 0 00-1.719-.755V6z" clip-rule="evenodd"/></svg>
+        </div>
+        <span class="font-extrabold text-base" style="color:var(--text)">PennyWise</span>
+      </a>
+      <div class="hidden sm:flex items-center gap-6">
+        <a href="#features" class="text-sm font-medium" style="color:var(--text2)">Features</a>
+        <a href="#stats" class="text-sm font-medium" style="color:var(--text2)">Stats</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="document.documentElement.classList.toggle('dark')" aria-label="Toggle theme" class="p-1.5 rounded-full" style="color:var(--text2)">
+          <svg class="w-5 h-5 hidden dark:block" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zm11.394-5.834a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zm-3.856 6.894a.75.75 0 001.06-1.06l-1.591-1.591a.75.75 0 10-1.06 1.06l1.591 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zm-4.242-.636a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zm.636-5.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"/></svg>
+          <svg class="w-5 h-5 block dark:hidden" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" clip-rule="evenodd"/></svg>
+        </button>
+        <a href="#" class="px-5 py-2 rounded-full text-sm font-bold text-white gradient-hero bounce-btn" style="box-shadow:0 6px 20px rgba(139,92,246,.3)">Download Free</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="relative z-10">
+    <section class="min-h-screen flex items-center pt-14">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-24 sm:py-32 text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-8" style="background:rgba(139,92,246,.1);color:var(--primary)">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+          #1 Finance App for Under-30s
+        </div>
+        <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.08] mb-6">
+          <span class="hero-word" style="color:var(--text)">Money stuff,</span><br>
+          <span class="hero-word gradient-text">but make it fun</span>
+        </h1>
+        <p class="text-lg sm:text-xl max-w-xl mx-auto mb-10 leading-relaxed" style="color:var(--text2)">Budget without the spreadsheets. Save without the stress. Invest without the jargon. PennyWise makes your money make sense.</p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="#" class="px-8 py-4 rounded-full text-base font-bold text-white gradient-hero bounce-btn" style="box-shadow:0 10px 30px rgba(139,92,246,.25)">Get PennyWise Free →</a>
+          <a href="#features" class="px-8 py-4 rounded-full text-base font-medium border bounce-btn" style="color:var(--text2);border-color:var(--border)">How It Works</a>
+        </div>
+
+        <div class="mt-16 max-w-xs mx-auto reveal">
+          <div class="rounded-[32px] border-4 overflow-hidden" style="border-color:var(--border);background:var(--surface);box-shadow:0 20px 60px rgba(139,92,246,.12)">
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-6">
+                <span class="text-sm font-bold" style="color:var(--text)">Hey, Sarah!</span>
+                <span class="text-xs font-medium" style="color:var(--text2)">Feb 2026</span>
+              </div>
+              <div class="text-center mb-6">
+                <p class="text-xs font-medium mb-1" style="color:var(--text2)">You've saved this month</p>
+                <p class="text-4xl font-extrabold gradient-text">£347</p>
+                <p class="text-xs mt-1" style="color:var(--primary)">↑ 23% vs last month</p>
+              </div>
+              <div class="space-y-3">
+                <div class="flex items-center justify-between p-3 rounded-2xl" style="background:rgba(139,92,246,.06)">
+                  <div class="flex items-center gap-2">
+                    <div class="w-6 h-6 rounded-full flex items-center justify-center" style="background:rgba(139,92,246,.15)"><svg class="w-3.5 h-3.5" style="color:var(--primary)" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177A7.547 7.547 0 016.648 6.61a.75.75 0 00-1.152-.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248zM15.75 14.25a3.75 3.75 0 11-7.313-1.172c.628.465 1.35.81 2.133 1a5.99 5.99 0 011.925-3.545 3.75 3.75 0 013.255 3.717z" clip-rule="evenodd"/></svg></div>
+                    <span class="text-sm font-medium" style="color:var(--text)">Coffee</span>
+                  </div>
+                  <span class="text-sm font-bold" style="color:var(--primary)">-£3.50</span>
+                </div>
+                <div class="flex items-center justify-between p-3 rounded-2xl" style="background:rgba(244,114,182,.06)">
+                  <div class="flex items-center gap-2">
+                    <div class="w-6 h-6 rounded-full flex items-center justify-center" style="background:rgba(244,114,182,.15)"><svg class="w-3.5 h-3.5" style="color:var(--accent)" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M19.952 1.651a.75.75 0 01.298.599V16.303a3 3 0 01-2.176 2.884l-1.32.377a2.553 2.553 0 11-1.403-4.909l2.311-.66a1.5 1.5 0 001.088-1.442V6.994l-9 2.572v9.737a3 3 0 01-2.176 2.884l-1.32.377a2.553 2.553 0 11-1.402-4.909l2.31-.66a1.5 1.5 0 001.088-1.442V5.25a.75.75 0 01.544-.721l10.5-3a.75.75 0 01.658.122z" clip-rule="evenodd"/></svg></div>
+                    <span class="text-sm font-medium" style="color:var(--text)">Spotify</span>
+                  </div>
+                  <span class="text-sm font-bold" style="color:var(--accent)">-£10.99</span>
+                </div>
+                <div class="flex items-center justify-between p-3 rounded-2xl" style="background:rgba(52,211,153,.06)">
+                  <div class="flex items-center gap-2">
+                    <div class="w-6 h-6 rounded-full flex items-center justify-center" style="background:rgba(52,211,153,.15)"><svg class="w-3.5 h-3.5 text-green-600" viewBox="0 0 24 24" fill="currentColor"><path d="M21 6.375c0 2.692-4.03 4.875-9 4.875S3 9.067 3 6.375 7.03 1.5 12 1.5s9 2.183 9 4.875z"/><path d="M12 12.75c2.685 0 5.19-.586 7.078-1.609a8.283 8.283 0 001.897-1.384c.016.121.025.244.025.368C21 12.817 16.97 15 12 15s-9-2.183-9-4.875c0-.124.009-.247.025-.368a8.285 8.285 0 001.897 1.384C6.809 12.164 9.315 12.75 12 12.75z"/><path d="M12 16.5c2.685 0 5.19-.586 7.078-1.609a8.282 8.282 0 001.897-1.384c.016.121.025.244.025.368 0 2.692-4.03 4.875-9 4.875s-9-2.183-9-4.875c0-.124.009-.247.025-.368a8.284 8.284 0 001.897 1.384C6.809 15.914 9.315 16.5 12 16.5z"/><path d="M12 20.25c2.685 0 5.19-.586 7.078-1.609a8.282 8.282 0 001.897-1.384c.016.121.025.244.025.368 0 2.692-4.03 4.875-9 4.875s-9-2.183-9-4.875c0-.124.009-.247.025-.368a8.284 8.284 0 001.897 1.384C6.809 19.664 9.315 20.25 12 20.25z"/></svg></div>
+                    <span class="text-sm font-medium" style="color:var(--text)">Savings pot</span>
+                  </div>
+                  <span class="text-sm font-bold text-green-600">+£50.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="py-24 sm:py-32">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-16 reveal">
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4" style="color:var(--text)">Finance, but <span class="gradient-text">without the boring</span></h2>
+          <p class="text-base max-w-lg mx-auto" style="color:var(--text2)">Everything you need to go from "where did my money go" to "I've got this."</p>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div class="card reveal p-6 rounded-3xl border gradient-card" style="border-color:var(--border)">
+            <div class="w-10 h-10 rounded-2xl flex items-center justify-center mb-3" style="background:rgba(139,92,246,.12)">
+              <svg class="w-5 h-5" style="color:var(--primary)" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 13.5a8.25 8.25 0 018.25-8.25.75.75 0 01.75.75v6.75H18a.75.75 0 01.75.75 8.25 8.25 0 01-16.5 0z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M12.75 3a.75.75 0 01.75-.75 8.25 8.25 0 018.25 8.25.75.75 0 01-.75.75h-7.5a.75.75 0 01-.75-.75V3z" clip-rule="evenodd"/></svg>
+            </div>
+            <h3 class="font-bold text-lg mb-2" style="color:var(--text)">Smart Budgets</h3>
+            <p class="text-sm leading-relaxed" style="color:var(--text2)">Set it and forget it. AI auto-categorises your spending and nudges you when you're going over.</p>
+          </div>
+          <div class="card reveal p-6 rounded-3xl border gradient-card" style="border-color:var(--border)">
+            <div class="w-10 h-10 rounded-2xl flex items-center justify-center mb-3" style="background:rgba(244,114,182,.12)">
+              <svg class="w-5 h-5" style="color:var(--accent)" viewBox="0 0 24 24" fill="currentColor"><path d="M21 6.375c0 2.692-4.03 4.875-9 4.875S3 9.067 3 6.375 7.03 1.5 12 1.5s9 2.183 9 4.875z"/><path d="M12 12.75c2.685 0 5.19-.586 7.078-1.609a8.283 8.283 0 001.897-1.384c.016.121.025.244.025.368C21 12.817 16.97 15 12 15s-9-2.183-9-4.875c0-.124.009-.247.025-.368a8.285 8.285 0 001.897 1.384C6.809 12.164 9.315 12.75 12 12.75z"/><path d="M12 16.5c2.685 0 5.19-.586 7.078-1.609a8.282 8.282 0 001.897-1.384c.016.121.025.244.025.368 0 2.692-4.03 4.875-9 4.875s-9-2.183-9-4.875c0-.124.009-.247.025-.368a8.284 8.284 0 001.897 1.384C6.809 15.914 9.315 16.5 12 16.5z"/></svg>
+            </div>
+            <h3 class="font-bold text-lg mb-2" style="color:var(--text)">Savings Pots</h3>
+            <p class="text-sm leading-relaxed" style="color:var(--text2)">Name your goals. Round up spare change. Watch your pots grow with satisfying animations.</p>
+          </div>
+          <div class="card reveal p-6 rounded-3xl border gradient-card" style="border-color:var(--border)">
+            <div class="w-10 h-10 rounded-2xl flex items-center justify-center mb-3" style="background:rgba(139,92,246,.12)">
+              <svg class="w-5 h-5" style="color:var(--primary)" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 2.25a.75.75 0 000 1.5H3v10.5a3 3 0 003 3h1.21l-1.172 3.513a.75.75 0 001.424.474l.329-.987h8.418l.33.987a.75.75 0 001.422-.474l-1.17-3.513H18a3 3 0 003-3V3.75h.75a.75.75 0 000-1.5H2.25zm6.04 16.5l.5-1.5h6.42l.5 1.5H8.29zm7.46-12a.75.75 0 00-1.5 0v6a.75.75 0 001.5 0v-6zm-3 2.25a.75.75 0 00-1.5 0v3.75a.75.75 0 001.5 0V9zm-3 2.25a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0v-1.5z" clip-rule="evenodd"/></svg>
+            </div>
+            <h3 class="font-bold text-lg mb-2" style="color:var(--text)">Baby Investing</h3>
+            <p class="text-sm leading-relaxed" style="color:var(--text2)">Start investing with £1. Pick themes you care about (tech, green energy, gaming). No jargon.</p>
+          </div>
+          <div class="card reveal p-6 rounded-3xl border gradient-card" style="border-color:var(--border)">
+            <div class="w-10 h-10 rounded-2xl flex items-center justify-center mb-3" style="background:rgba(244,114,182,.12)">
+              <svg class="w-5 h-5" style="color:var(--accent)" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M5.166 2.621v.858c-1.035.148-2.059.33-3.071.543a.75.75 0 00-.584.859 6.753 6.753 0 006.138 5.6 6.73 6.73 0 002.743 1.346A6.707 6.707 0 019.279 15H8.54c-1.036 0-1.875.84-1.875 1.875V19.5h-.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5h-.75v-2.625c0-1.036-.84-1.875-1.875-1.875h-.739a6.707 6.707 0 01-1.112-3.173 6.73 6.73 0 002.743-1.347 6.753 6.753 0 006.139-5.6.75.75 0 00-.585-.858 47.077 47.077 0 00-3.07-.543V2.62a.75.75 0 00-.658-.744 49.22 49.22 0 00-6.093-.377c-2.063 0-4.096.128-6.093.377a.75.75 0 00-.657.744zm0 2.629c0 1.196.312 2.32.857 3.294A5.266 5.266 0 013.16 5.337a45.6 45.6 0 012.006-.343v.256zm13.5 0v-.256c.674.1 1.343.214 2.006.343a5.265 5.265 0 01-2.863 3.207 6.72 6.72 0 00.857-3.294z" clip-rule="evenodd"/></svg>
+            </div>
+            <h3 class="font-bold text-lg mb-2" style="color:var(--text)">Money Challenges</h3>
+            <p class="text-sm leading-relaxed" style="color:var(--text2)">No-spend weekends. £5 coffee challenge. Compete with friends and earn badges.</p>
+          </div>
+          <div class="card reveal p-6 rounded-3xl border gradient-card" style="border-color:var(--border)">
+            <div class="w-10 h-10 rounded-2xl flex items-center justify-center mb-3" style="background:rgba(139,92,246,.12)">
+              <svg class="w-5 h-5" style="color:var(--primary)" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M5.25 9a6.75 6.75 0 0113.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 01-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 11-7.48 0 24.585 24.585 0 01-4.831-1.244.75.75 0 01-.298-1.205A8.217 8.217 0 005.25 9.75V9zm4.502 8.9a2.25 2.25 0 104.496 0 25.057 25.057 0 01-4.496 0z" clip-rule="evenodd"/></svg>
+            </div>
+            <h3 class="font-bold text-lg mb-2" style="color:var(--text)">Vibe Alerts</h3>
+            <p class="text-sm leading-relaxed" style="color:var(--text2)">"Hey you spent £47 on Deliveroo this week" — friendly, not judgy. Always on your side.</p>
+          </div>
+          <div class="card reveal p-6 rounded-3xl border gradient-card" style="border-color:var(--border)">
+            <div class="w-10 h-10 rounded-2xl flex items-center justify-center mb-3" style="background:rgba(244,114,182,.12)">
+              <svg class="w-5 h-5" style="color:var(--accent)" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clip-rule="evenodd"/></svg>
+            </div>
+            <h3 class="font-bold text-lg mb-2" style="color:var(--text)">Bank-Grade Security</h3>
+            <p class="text-sm leading-relaxed" style="color:var(--text2)">FCA regulated. 256-bit encryption. Biometric login. Your money is safer here than in your sock drawer.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="stats" class="py-16">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 reveal">
+        <div class="grid sm:grid-cols-3 gap-5 text-center">
+          <div class="p-6 rounded-3xl" style="background:rgba(139,92,246,.06)"><p class="text-3xl font-extrabold gradient-text">240K+</p><p class="text-sm mt-1 font-medium" style="color:var(--text2)">Users under 30</p></div>
+          <div class="p-6 rounded-3xl" style="background:rgba(244,114,182,.06)"><p class="text-3xl font-extrabold gradient-text">£12M</p><p class="text-sm mt-1 font-medium" style="color:var(--text2)">Saved by users this year</p></div>
+          <div class="p-6 rounded-3xl" style="background:rgba(139,92,246,.06)"><p class="text-3xl font-extrabold gradient-text">4.8★</p><p class="text-sm mt-1 font-medium" style="color:var(--text2)">App Store rating</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-24 sm:py-32">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center reveal">
+        <div class="gradient-hero rounded-[32px] p-12 text-white">
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">Your future self will thank you</h2>
+          <p class="text-lg mb-8 opacity-90">Start with £0. Upgrade when you want. No pressure, no hidden fees.</p>
+          <a href="#" class="inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-bold bg-white bounce-btn" style="color:var(--primary);box-shadow:0 10px 30px rgba(0,0,0,.15)">Download PennyWise →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-8 relative z-10">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-xs" style="color:var(--text2)">© <script>document.write(new Date().getFullYear())</script> PennyWise Ltd. FCA Regulated. All rights reserved.</p>
+      <div class="flex gap-4"><a href="#" class="text-xs" style="color:var(--text2)">Privacy</a><a href="#" class="text-xs" style="color:var(--text2)">Terms</a><a href="#" class="text-xs" style="color:var(--text2)">Instagram</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.classList.add('dark')})();
+    const obs=new IntersectionObserver(e=>{e.forEach((el,i)=>{if(el.isIntersecting)setTimeout(()=>el.target.classList.add('active'),i*60)})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+    window.addEventListener('load',()=>{anime({targets:'.hero-word',opacity:[0,1],translateY:[25,0],scale:[.97,1],delay:anime.stagger(120,{start:200}),easing:'easeOutCubic',duration:1000})});
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'})})});
+  </script>
+</body>
+</html>

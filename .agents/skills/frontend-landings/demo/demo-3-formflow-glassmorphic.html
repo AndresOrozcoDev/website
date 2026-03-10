@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FormFlow — Beautiful forms, zero code</title>
+  <meta name="description" content="Build stunning, logic-powered forms in minutes. No code required. Embed anywhere.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['"Sora"','sans-serif']},colors:{primary:{DEFAULT:'#6D5BF7',hover:'#5A47E0',light:'#EDE9FE'},accent:'#F472B6',surface:{DEFAULT:'rgba(255,255,255,0.6)',dark:'rgba(30,30,50,0.6)'}}}}}
+  </script>
+  <style>
+    :root{--bg:#F0F0F3;--surface:rgba(255,255,255,.6);--text:#1A1A2E;--text2:#555580;--primary:#6D5BF7;--accent:#F472B6;--border:rgba(255,255,255,.3)}
+    .dark{--bg:#0F0F1A;--surface:rgba(30,30,50,.6);--text:#EEEEFF;--text2:#8888BB;--primary:#8B7BFF;--accent:#F472B6;--border:rgba(255,255,255,.08)}
+    body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif}
+    .glass{background:var(--surface);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--border)}.glass:hover{border-color:rgba(109,91,247,.3);box-shadow:0 8px 32px rgba(109,91,247,.12)}
+    .reveal{opacity:0;transform:translateY(24px);transition:all .8s cubic-bezier(.16,1,.3,1)}.reveal.active{opacity:1;transform:translateY(0)}
+    .orb{position:absolute;border-radius:50%;filter:blur(100px);animation:float 20s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-50px) scale(1.1)}66%{transform:translate(-20px,20px) scale(.9)}}
+    .gradient-text{background:linear-gradient(135deg,#6D5BF7,#F472B6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .nav-blur{backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+    @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}.shimmer-btn{background:linear-gradient(90deg,#6D5BF7,#F472B6,#6D5BF7);background-size:200% 100%;animation:shimmer 3s ease-in-out infinite}
+  </style>
+</head>
+<body class="antialiased relative overflow-x-hidden">
+  <div class="orb w-80 h-80 opacity-30 top-20 -left-20" style="background:#6D5BF7"></div>
+  <div class="orb w-64 h-64 opacity-20 top-1/3 right-0" style="background:#F472B6;animation-delay:-7s"></div>
+  <div class="orb w-72 h-72 opacity-20 bottom-1/4 left-1/4" style="background:#6D5BF7;animation-delay:-14s"></div>
+
+  <nav class="fixed top-0 inset-x-0 z-50 nav-blur border-b" style="background:rgba(240,240,243,.7);border-color:var(--border)">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14">
+      <a href="#" class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-xl flex items-center justify-center shimmer-btn">
+          <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625zM7.5 15a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 017.5 15zm.75 2.25a.75.75 0 000 1.5H12a.75.75 0 000-1.5H8.25z" clip-rule="evenodd"/><path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z"/></svg>
+        </div>
+        <span class="font-bold text-base" style="color:var(--text)">FormFlow</span>
+      </a>
+      <div class="hidden sm:flex items-center gap-6">
+        <a href="#features" class="text-sm" style="color:var(--text2)">Features</a>
+        <a href="#cta" class="text-sm" style="color:var(--text2)">Pricing</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="document.documentElement.classList.toggle('dark')" aria-label="Toggle theme" class="p-1.5 rounded-lg" style="color:var(--text2)">
+          <svg class="w-5 h-5 hidden dark:block" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zm11.394-5.834a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zm-3.856 6.894a.75.75 0 001.06-1.06l-1.591-1.591a.75.75 0 10-1.06 1.06l1.591 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zm-4.242-.636a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zm.636-5.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"/></svg>
+          <svg class="w-5 h-5 block dark:hidden" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" clip-rule="evenodd"/></svg>
+        </button>
+        <a href="#" class="px-4 py-2 rounded-xl text-sm font-semibold text-white shimmer-btn">Start Free</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="relative z-10">
+    <section class="min-h-screen flex items-center pt-14">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-24 sm:py-32 text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium mb-8 glass" style="color:var(--text2)">
+          <svg class="w-3.5 h-3.5" style="color:var(--primary)" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9 4.5a.75.75 0 01.721.544l.813 2.846a3.75 3.75 0 002.576 2.576l2.846.813a.75.75 0 010 1.442l-2.846.813a3.75 3.75 0 00-2.576 2.576l-.813 2.846a.75.75 0 01-1.442 0l-.813-2.846a3.75 3.75 0 00-2.576-2.576l-2.846-.813a.75.75 0 010-1.442l2.846-.813A3.75 3.75 0 007.466 7.89l.813-2.846A.75.75 0 019 4.5z" clip-rule="evenodd"/></svg>
+          50,000+ forms created this month
+        </div>
+        <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] mb-6">
+          <span class="hero-word" style="color:var(--text)">Beautiful forms,</span><br>
+          <span class="hero-word gradient-text">zero code</span>
+        </h1>
+        <p class="text-lg sm:text-xl max-w-xl mx-auto mb-10 leading-relaxed" style="color:var(--text2)">Drag. Drop. Publish. Build stunning forms with conditional logic, file uploads, and payment collection — in minutes.</p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="#" class="px-7 py-3.5 rounded-2xl text-base font-semibold text-white shimmer-btn shadow-lg" style="box-shadow:0 8px 32px rgba(109,91,247,.3)">Create Your First Form →</a>
+          <a href="#features" class="px-7 py-3.5 rounded-2xl text-base font-medium glass" style="color:var(--text2)">See Features</a>
+        </div>
+
+        <div class="mt-16 max-w-md mx-auto reveal">
+          <div class="glass rounded-3xl p-8 text-left" style="box-shadow:0 8px 40px rgba(109,91,247,.1)">
+            <p class="text-xs font-semibold uppercase tracking-wider mb-4" style="color:var(--primary)">Live Preview</p>
+            <div class="space-y-4">
+              <div><label class="block text-sm font-medium mb-1.5" style="color:var(--text)">Your name</label><div class="h-10 rounded-xl border px-3 flex items-center text-sm" style="background:rgba(255,255,255,.5);border-color:var(--border);color:var(--text2)">Jane Cooper</div></div>
+              <div><label class="block text-sm font-medium mb-1.5" style="color:var(--text)">Email</label><div class="h-10 rounded-xl border px-3 flex items-center text-sm" style="background:rgba(255,255,255,.5);border-color:var(--border);color:var(--text2)">jane@company.co</div></div>
+              <div><label class="block text-sm font-medium mb-1.5" style="color:var(--text)">How can we help?</label><div class="h-20 rounded-xl border px-3 py-2 text-sm" style="background:rgba(255,255,255,.5);border-color:var(--border);color:var(--text2)">I'd love a demo...</div></div>
+              <button class="w-full py-2.5 rounded-xl text-sm font-semibold text-white shimmer-btn">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="py-24 sm:py-32">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-16 reveal">
+          <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-4" style="color:var(--text)">Everything you need.<br><span class="gradient-text">Nothing you don't.</span></h2>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div class="glass reveal rounded-2xl p-6 transition-all duration-300">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-3" style="background:rgba(109,91,247,.12)">
+              <svg class="w-5 h-5" style="color:var(--primary)" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clip-rule="evenodd"/></svg>
+            </div>
+            <h3 class="font-semibold mb-2" style="color:var(--text)">Drag & Drop Builder</h3>
+            <p class="text-sm" style="color:var(--text2)">30+ field types. Drag to reorder. Click to customize. No code, no headaches.</p>
+          </div>
+          <div class="glass reveal rounded-2xl p-6 transition-all duration-300">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-3" style="background:rgba(244,114,182,.12)">
+              <svg class="w-5 h-5" style="color:var(--accent)" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M3.97 3.97a.75.75 0 011.06 0l13 13a.75.75 0 01-1.06 1.06l-13-13a.75.75 0 010-1.06zm0 7.5a.75.75 0 011.06 0l5.5 5.5a.75.75 0 11-1.06 1.06l-5.5-5.5a.75.75 0 010-1.06zm7.5-7.5a.75.75 0 011.06 0l5.5 5.5a.75.75 0 11-1.06 1.06l-5.5-5.5a.75.75 0 010-1.06z" clip-rule="evenodd"/></svg>
+            </div>
+            <h3 class="font-semibold mb-2" style="color:var(--text)">Conditional Logic</h3>
+            <p class="text-sm" style="color:var(--text2)">Show/hide fields based on answers. Build branching forms that feel like conversations.</p>
+          </div>
+          <div class="glass reveal rounded-2xl p-6 transition-all duration-300">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-3" style="background:rgba(109,91,247,.12)">
+              <svg class="w-5 h-5" style="color:var(--primary)" viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 3.75a3 3 0 00-3 3v.75h21v-.75a3 3 0 00-3-3h-15z"/><path fill-rule="evenodd" d="M22.5 9.75h-21v7.5a3 3 0 003 3h15a3 3 0 003-3v-7.5zm-18 3.75a.75.75 0 01.75-.75h6a.75.75 0 010 1.5h-6a.75.75 0 01-.75-.75zm.75 2.25a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z" clip-rule="evenodd"/></svg>
+            </div>
+            <h3 class="font-semibold mb-2" style="color:var(--text)">Payment Collection</h3>
+            <p class="text-sm" style="color:var(--text2)">Stripe built-in. Collect payments, deposits, or donations directly from your form.</p>
+          </div>
+          <div class="glass reveal rounded-2xl p-6 transition-all duration-300">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-3" style="background:rgba(244,114,182,.12)">
+              <svg class="w-5 h-5" style="color:var(--accent)" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M18.97 3.659a2.25 2.25 0 00-3.182 0l-10.94 10.94a3.75 3.75 0 105.304 5.303l7.693-7.693a.75.75 0 011.06 1.06l-7.693 7.693a5.25 5.25 0 11-7.424-7.424l10.939-10.94a3.75 3.75 0 115.303 5.304L9.097 18.835l-.008.008-.007.007-.002.002-.003.002A2.25 2.25 0 015.91 15.66l7.81-7.81a.75.75 0 011.061 1.06l-7.81 7.81a.75.75 0 001.054 1.068L18.97 6.84a2.25 2.25 0 000-3.182z" clip-rule="evenodd"/></svg>
+            </div>
+            <h3 class="font-semibold mb-2" style="color:var(--text)">File Uploads</h3>
+            <p class="text-sm" style="color:var(--text2)">Accept images, PDFs, and documents. Up to 100MB per file with drag-and-drop.</p>
+          </div>
+          <div class="glass reveal rounded-2xl p-6 transition-all duration-300">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-3" style="background:rgba(109,91,247,.12)">
+              <svg class="w-5 h-5" style="color:var(--primary)" viewBox="0 0 24 24" fill="currentColor"><path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z"/></svg>
+            </div>
+            <h3 class="font-semibold mb-2" style="color:var(--text)">Built-in Analytics</h3>
+            <p class="text-sm" style="color:var(--text2)">Completion rates, drop-off points, average time. Know exactly how your forms perform.</p>
+          </div>
+          <div class="glass reveal rounded-2xl p-6 transition-all duration-300">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-3" style="background:rgba(244,114,182,.12)">
+              <svg class="w-5 h-5" style="color:var(--accent)" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M14.447 3.027a.75.75 0 01.527.92l-4.5 16.5a.75.75 0 01-1.448-.394l4.5-16.5a.75.75 0 01.921-.526zM16.72 6.22a.75.75 0 011.06 0l5.25 5.25a.75.75 0 010 1.06l-5.25 5.25a.75.75 0 11-1.06-1.06L21.44 12l-4.72-4.72a.75.75 0 010-1.06zm-9.44 0a.75.75 0 010 1.06L2.56 12l4.72 4.72a.75.75 0 11-1.06 1.06L.97 12.53a.75.75 0 010-1.06l5.25-5.25a.75.75 0 011.06 0z" clip-rule="evenodd"/></svg>
+            </div>
+            <h3 class="font-semibold mb-2" style="color:var(--text)">Embed Anywhere</h3>
+            <p class="text-sm" style="color:var(--text2)">One-line embed code. Works in Notion, WordPress, Webflow, or any website.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cta" class="py-24 sm:py-32">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center reveal">
+        <div class="glass rounded-3xl p-12" style="box-shadow:0 8px 40px rgba(109,91,247,.1)">
+          <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-4" style="color:var(--text)">Ready to build<br><span class="gradient-text">something beautiful?</span></h2>
+          <p class="text-base mb-8" style="color:var(--text2)">Free plan includes unlimited forms. No credit card needed.</p>
+          <a href="#" class="inline-flex items-center gap-2 px-8 py-4 rounded-2xl text-base font-semibold text-white shimmer-btn" style="box-shadow:0 8px 32px rgba(109,91,247,.3)">Start Building Free →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-8 relative z-10">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-xs" style="color:var(--text2)">© <script>document.write(new Date().getFullYear())</script> FormFlow. All rights reserved.</p>
+      <div class="flex gap-4"><a href="#" class="text-xs" style="color:var(--text2)">Privacy</a><a href="#" class="text-xs" style="color:var(--text2)">Terms</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.classList.add('dark')})();
+    const obs=new IntersectionObserver(e=>{e.forEach((el,i)=>{if(el.isIntersecting)setTimeout(()=>el.target.classList.add('active'),i*60)})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+    window.addEventListener('load',()=>{anime({targets:'.hero-word',opacity:[0,1],translateY:[25,0],delay:anime.stagger(120,{start:200}),easing:'easeOutCubic',duration:1000})});
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'})})});
+  </script>
+</body>
+</html>
