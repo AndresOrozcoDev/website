@@ -1,45 +1,301 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website</title>
-
-    <!-- Global styles -->
-    <link rel="stylesheet" href="assets/css/global.css">
-
-    <!-- Page styles -->
-    <link rel="stylesheet" href="index.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lumina — Agencia digital que eleva tu presencia online con diseño web, estrategia digital, branding y SEO. Contáctanos hoy.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Lumina — Agencia Digital">
+  <meta property="og:description" content="Diseño web, estrategia digital y branding para empresas que quieren destacar.">
+  <meta property="og:type" content="website">
+  <title>Lumina — Agencia Digital | Inicio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Jost:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
+<body class="page-body">
 
-<body>
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
-    <header>
-        <nav>
-            <a href="/index.html">Home</a>
-            <a href="/pages/company/">Company</a>
-            <a href="/pages/services/">Services</a>
-            <a href="/pages/contact/">Contact Us</a>
+  <!-- ── HEADER ── -->
+  <header class="site-header" id="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="index.html" class="logo" aria-label="Lumina — Inicio">
+        <span class="logo-mark" aria-hidden="true">◆</span>
+        <span class="logo-text">Lumina</span>
+      </a>
+      <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
+        <ul class="nav-list" role="list">
+          <li><a href="index.html" class="nav-link">Inicio</a></li>
+          <li><a href="empresa.html" class="nav-link">Empresa</a></li>
+          <li><a href="servicios.html" class="nav-link">Servicios</a></li>
+          <li><a href="contacto.html" class="nav-link">Contáctanos</a></li>
+        </ul>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="mobile-nav">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile nav drawer -->
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Navegación móvil" aria-hidden="true">
+    <ul class="mobile-nav-list" role="list">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="empresa.html">Empresa</a></li>
+      <li><a href="servicios.html">Servicios</a></li>
+      <li><a href="contacto.html" class="btn-nav-mobile">Contáctanos</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- ── HERO SLIDER ── -->
+    <section class="hero" aria-label="Slider principal">
+      <div class="slider" id="hero-slider" aria-label="Presentación de servicios" role="region">
+
+        <!-- Slide 1 -->
+        <article class="slide slide-1 active" aria-hidden="false">
+          <div class="slide-grid" aria-hidden="true"></div>
+          <div class="container slide-content">
+            <h1>Elevamos tu<br><span class="gradient-text">Presencia Digital</span></h1>
+            <p>Creamos experiencias digitales que conectan con tu audiencia, generan impacto y convierten visitantes en clientes leales.</p>
+            <div class="slide-actions">
+              <a href="servicios.html" class="btn btn-primary">Ver Servicios</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Slide 2 -->
+        <article class="slide slide-2" aria-hidden="true">
+          <div class="slide-grid" aria-hidden="true"></div>
+          <div class="container slide-content">
+            <span class="slide-badge">Diseño &amp; Estrategia</span>
+            <h1>Soluciones que<br><span class="gradient-text">Transforman Negocios</span></h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Desde branding hasta desarrollo web, ofrecemos soluciones integrales para tu empresa.</p>
+            <div class="slide-actions">
+              <a href="contacto.html" class="btn btn-primary">Empieza Hoy</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Slide 3 -->
+        <article class="slide slide-3" aria-hidden="true">
+          <div class="slide-grid" aria-hidden="true"></div>
+          <div class="container slide-content">
+            <span class="slide-badge">Resultados Reales</span>
+            <h1>Resultados que<br><span class="gradient-text">Hablan por Sí Solos</span></h1>
+            <p>Más de 200 proyectos entregados, 50+ clientes satisfechos y una trayectoria de crecimiento constante avalan nuestro trabajo.</p>
+            <div class="slide-actions">
+              <a href="contacto.html" class="btn btn-primary">Contáctanos</a>
+            </div>
+          </div>
+        </article>
+
+      </div><!-- /slider -->
+
+      <!-- Slider controls -->
+      <div class="slider-controls" aria-label="Controles del slider">
+        <button class="slider-btn" id="slider-prev" aria-label="Diapositiva anterior">&#8592;</button>
+        <div class="slider-dots" role="tablist" aria-label="Indicadores de diapositiva">
+          <button class="dot active" role="tab" aria-selected="true" aria-label="Ir a diapositiva 1"></button>
+          <button class="dot" role="tab" aria-selected="false" aria-label="Ir a diapositiva 2"></button>
+          <button class="dot" role="tab" aria-selected="false" aria-label="Ir a diapositiva 3"></button>
+        </div>
+        <button class="slider-btn" id="slider-next" aria-label="Siguiente diapositiva">&#8594;</button>
+      </div>
+    </section>
+
+    <!-- ── INTRO / ABOUT BRIEF ── -->
+    <section class="intro-section" aria-labelledby="intro-heading">
+      <div class="container intro-grid">
+        <!-- Image -->
+        <div class="intro-image-wrap" data-reveal="left">
+          <div class="image-ph" role="img" aria-label="Equipo Lumina trabajando">🚀</div>
+        </div>
+
+        <!-- Text -->
+        <div data-reveal="right">
+          <span class="label">Sobre Nosotros</span>
+          <h2 id="intro-heading" class="section-title">Creamos el futuro<br>digital de tu marca</h2>
+          <p class="section-sub">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+          <p style="color:var(--text-2);margin-top:1rem;line-height:1.75;font-size:0.9375rem;">Fundada en 2018, Lumina ha ayudado a más de 50 empresas a transformar su presencia digital. Combinamos creatividad, tecnología y estrategia para entregar resultados medibles.</p>
+          <div style="margin-top:2rem;">
+            <a href="empresa.html" class="btn btn-outline">Conoce nuestra historia</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SERVICES PREVIEW ── -->
+    <section aria-labelledby="services-heading">
+      <div class="container">
+        <div class="section-header centered" data-reveal>
+          <span class="label">Lo que hacemos</span>
+          <h2 id="services-heading" class="section-title">Servicios Destacados</h2>
+          <p class="section-sub">Soluciones digitales integrales diseñadas para impulsar el crecimiento de tu negocio.</p>
+        </div>
+
+        <div class="cards-grid" role="list">
+          <!-- Card 1 -->
+          <article class="card" data-reveal data-delay="1" role="listitem">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </div>
+            <h3 class="card-title">Diseño Web</h3>
+            <p class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Creamos sitios web modernos, rápidos y optimizados para convertir.</p>
+            <a href="servicios.html" class="card-link" aria-label="Ver más sobre Diseño Web">Ver más →</a>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="card" data-reveal data-delay="2" role="listitem">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <h3 class="card-title">Estrategia Digital</h3>
+            <p class="card-desc">Ut enim ad minim veniam, quis nostrud exercitation. Desarrollamos planes digitales alineados con tus objetivos de negocio.</p>
+            <a href="servicios.html" class="card-link" aria-label="Ver más sobre Estrategia Digital">Ver más →</a>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="card" data-reveal data-delay="3" role="listitem">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+            <h3 class="card-title">SEO &amp; Posicionamiento</h3>
+            <p class="card-desc">Duis aute irure dolor in reprehenderit. Optimizamos tu visibilidad en buscadores para atraer tráfico orgánico de calidad.</p>
+            <a href="servicios.html" class="card-link" aria-label="Ver más sobre SEO">Ver más →</a>
+          </article>
+        </div>
+
+        <div style="text-align:center;margin-top:3rem;" data-reveal>
+          <a href="servicios.html" class="btn btn-outline">Ver todos los servicios</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TESTIMONIALS ── -->
+    <section class="testimonials" aria-labelledby="testimonials-heading">
+      <div class="container">
+        <div class="section-header centered" data-reveal>
+          <span class="label">Testimonios</span>
+          <h2 id="testimonials-heading" class="section-title">Lo que dicen nuestros clientes</h2>
+          <p class="section-sub">La satisfacción de nuestros clientes es nuestra mayor motivación.</p>
+        </div>
+
+        <div class="testimonials-grid" role="list">
+          <article class="testimonial-card" data-reveal data-delay="1" role="listitem">
+            <div class="stars" aria-label="5 de 5 estrellas">★★★★★</div>
+            <p class="testimonial-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lumina transformó completamente nuestra presencia digital. Los resultados superaron todas nuestras expectativas."</p>
+            <div class="author">
+              <div class="author-avatar" aria-hidden="true">MR</div>
+              <div>
+                <div class="author-name">María Rodríguez</div>
+                <div class="author-role">CEO, TechStart SA</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card" data-reveal data-delay="2" role="listitem">
+            <div class="stars" aria-label="5 de 5 estrellas">★★★★★</div>
+            <p class="testimonial-text">"Ut enim ad minim veniam, quis nostrud exercitation ullamco. El equipo de Lumina es altamente profesional y creativo. Recomiendo sus servicios sin dudas."</p>
+            <div class="author">
+              <div class="author-avatar" aria-hidden="true">CL</div>
+              <div>
+                <div class="author-name">Carlos López</div>
+                <div class="author-role">Director de Marketing, Innovex</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card" data-reveal data-delay="3" role="listitem">
+            <div class="stars" aria-label="5 de 5 estrellas">★★★★★</div>
+            <p class="testimonial-text">"Duis aute irure dolor in reprehenderit in voluptate. Gracias a Lumina nuestras ventas online aumentaron un 140% en solo 6 meses."</p>
+            <div class="author">
+              <div class="author-avatar" aria-hidden="true">AG</div>
+              <div>
+                <div class="author-name">Ana García</div>
+                <div class="author-role">Fundadora, ModaVerde</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CTA ── -->
+    <section class="cta-section" aria-labelledby="cta-heading">
+      <div class="container">
+        <div class="cta-inner" data-reveal>
+          <span class="label">¿Listo para empezar?</span>
+          <h2 id="cta-heading">Hagamos crecer tu negocio juntos</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cuéntanos sobre tu proyecto y te mostraremos cómo podemos ayudarte.</p>
+          <div class="cta-actions">
+            <a href="contacto.html" class="btn btn-primary">Iniciar un proyecto</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <!-- Brand row -->
+      <div class="footer-brand-row">
+        <span class="logo-mark" aria-hidden="true">◆</span>
+        <span class="footer-logo-text">Lumina</span>
+      </div>
+
+      <!-- Two columns -->
+      <div class="footer-cols">
+        <!-- Col 1: Navigation -->
+        <nav aria-label="Navegación del pie de página">
+          <h2 class="footer-col-title">Navegación</h2>
+          <ul class="footer-nav-list" role="list">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="empresa.html">Empresa</a></li>
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="contacto.html">Contáctanos</a></li>
+          </ul>
         </nav>
-    </header>
 
-    <main>
-        <h1>Welcome to Brand</h1>
-        <p>Scroll down to see the header effect.</p>
-    </main>
+        <!-- Col 2: Social -->
+        <div>
+          <h2 class="footer-col-title">Síguenos</h2>
+          <div class="social-links" aria-label="Redes sociales">
+            <a href="#" class="social-link" aria-label="Facebook" rel="noopener noreferrer" target="_blank">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="Instagram" rel="noopener noreferrer" target="_blank">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" style="fill:none;stroke:currentColor;stroke-width:2"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" style="fill:none;stroke:currentColor;stroke-width:2"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="LinkedIn" rel="noopener noreferrer" target="_blank">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="X / Twitter" rel="noopener noreferrer" target="_blank">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="YouTube" rel="noopener noreferrer" target="_blank">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.4 19.6C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" style="fill:var(--bg)"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <footer>
-        <p>&copy; 2023 Brand. All rights reserved.</p>
-    </footer>
+    <div class="footer-bottom">
+      <div class="container" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:0.5rem;">
+        <p class="footer-copy">&copy; 2026 Lumina. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
 
-    <!-- Global JS -->
-    <script src="assets/js/global.js"></script>
-
-    <!-- Page JS -->
-    <script src="index.js"></script>
-
+  <script src="js/main.js"></script>
 </body>
-
 </html>
