@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "skills": {
+    "frontend-design": {
+      "source": "mager/frontend-design",
+      "sourceType": "github",
+      "computedHash": "648ac1168dcfb6c8d6952abb381a879982c4e1f4789a377de29efc5d2274f7a6"
+    },
+    "frontend-landings": {
+      "source": "auwalmusa/frontend-landings-claude-skill",
+      "sourceType": "github",
+      "computedHash": "5618de2a5e1d26ee6f450596faad6e511557e05eb892299056b5d89758df91df"
+    },
+    "seo-content-writer": {
+      "source": "aaron-he-zhu/seo-geo-claude-skills",
+      "sourceType": "github",
+      "computedHash": "f62affee9b21b5394d96896bfb0259b3d42acf0d13d67680b73f962a762aa565"
+    }
+  }
+}
