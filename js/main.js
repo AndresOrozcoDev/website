@@ -270,3 +270,161 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     window.scrollTo({ top: target.getBoundingClientRect().top + scrollY - offset, behavior: 'smooth' });
   });
 });
+
+/* ============================================================
+   QUOTATION WIZARD MODAL — FerroMax
+   ============================================================ */
+(function initQuoteWizard() {
+  'use strict';
+
+  const modal    = document.getElementById('quote-modal');
+  if (!modal) return;
+
+  const overlay  = document.getElementById('wz-overlay');
+  const closeBtn = document.getElementById('wz-close');
+  const doneBtn  = document.getElementById('wz-done');
+  const serviceTag = document.getElementById('wz-service-tag');
+  const progFill = document.getElementById('wz-prog-fill');
+  const lbls     = [1,2,3,4,5].map(i => document.getElementById('wz-lbl-' + i));
+  const steps    = [1,2,3,4,5].map(i => document.getElementById('wz-step-' + i));
+
+  let currentStep = 1;
+  let selections  = { material: null, tipo: null };
+
+  // ── Open modal ──
+  function openModal(serviceName) {
+    selections = { material: null, tipo: null };
+    currentStep = 1;
+    serviceTag.textContent = serviceName || 'Servicio';
+    resetAllSteps();
+    showStep(1);
+    modal.classList.add('open');
+    modal.removeAttribute('hidden');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+
+  // ── Close modal ──
+  function closeModal() {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // ── Show step ──
+  function showStep(n) {
+    steps.forEach((s, i) => {
+      s.classList.toggle('active', i + 1 === n);
+    });
+    lbls.forEach((l, i) => {
+      l.classList.toggle('active', i + 1 === n);
+    });
+    const pct = Math.round((n / 5) * 100);
+    progFill.style.width = pct + '%';
+    currentStep = n;
+  }
+
+  // ── Reset ──
+  function resetAllSteps() {
+    modal.querySelectorAll('.wz-option').forEach(opt => opt.classList.remove('selected'));
+    modal.querySelectorAll('.wz-error').forEach(err => { err.style.display = 'none'; });
+    ['wz-ancho','wz-alto','wz-cantidad','wz-nombre','wz-email','wz-telefono','wz-notas']
+      .forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = id === 'wz-cantidad' ? '1' : '';
+      });
+  }
+
+  // ── Option selection ──
+  modal.addEventListener('click', e => {
+    const opt = e.target.closest('.wz-option');
+    if (!opt) return;
+    const group = opt.dataset.group;
+    // Deselect siblings in same group
+    modal.querySelectorAll(`.wz-option[data-group="${group}"]`).forEach(o => o.classList.remove('selected'));
+    opt.classList.add('selected');
+    selections[group] = opt.dataset.value;
+  });
+
+  // ── Navigation ──
+  function bindNav(nextId, prevId, step, validate) {
+    const nextBtn = document.getElementById(nextId);
+    const prevBtn = prevId ? document.getElementById(prevId) : null;
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        const errEl = document.getElementById('wz-err-' + step);
+        if (validate && !validate()) {
+          if (errEl) errEl.style.display = 'block';
+          return;
+        }
+        if (errEl) errEl.style.display = 'none';
+        showStep(step + 1);
+      });
+    }
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => showStep(step - 1));
+    }
+  }
+
+  bindNav('wz-next-1', null, 1, () => !!selections.material);
+  bindNav('wz-next-2', 'wz-prev-2', 2, () => !!selections.tipo);
+  bindNav('wz-next-3', 'wz-prev-3', 3, () => {
+    const a = document.getElementById('wz-ancho').value.trim();
+    const h = document.getElementById('wz-alto').value.trim();
+    return a && h && Number(a) > 0 && Number(h) > 0;
+  });
+
+  // ── Submit step 4 ──
+  const submitBtn = document.getElementById('wz-submit');
+  const prevBtn4  = document.getElementById('wz-prev-4');
+  if (prevBtn4) prevBtn4.addEventListener('click', () => showStep(3));
+  if (submitBtn) {
+    submitBtn.addEventListener('click', () => {
+      const nombre = document.getElementById('wz-nombre').value.trim();
+      const email  = document.getElementById('wz-email').value.trim();
+      const errEl  = document.getElementById('wz-err-4');
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!nombre || !emailOk) {
+        if (errEl) errEl.style.display = 'block';
+        return;
+      }
+      if (errEl) errEl.style.display = 'none';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando…';
+      // Simulate async send
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Enviar Solicitud';
+        showStep(5);
+      }, 1200);
+    });
+  }
+
+  // ── Done button ──
+  if (doneBtn) doneBtn.addEventListener('click', closeModal);
+
+  // ── Close triggers ──
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', closeModal);
+
+  // ── Keyboard: Escape closes ──
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+  });
+
+  // ── Attach to service cards ──
+  document.querySelectorAll('.card[data-service]').forEach(card => {
+    card.addEventListener('click', e => {
+      // Only open if clicking the button or the card itself (not a link inside)
+      if (e.target.tagName === 'A') return;
+      openModal(card.dataset.service);
+    });
+    // Also attach directly to quote buttons
+    const btn = card.querySelector('.card-quote-btn');
+    if (btn) {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        openModal(card.dataset.service);
+      });
+    }
+  });
+})();
